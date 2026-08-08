@@ -1,0 +1,87 @@
+/* =============================================================================
+   CHAITANYA LAD — responsive.css
+   Intentional compositions per range, not a shrunk desktop.
+   Ranges: <=1024 · <=880 (nav collapse) · <=720 · <=560 · <=380
+   ============================================================================= */
+
+/* ------------------------------------------------------------- <= 1024 --- */
+@media (max-width: 1024px) {
+  :root { --gutter: clamp(1.15rem, 4vw, 2.5rem); }
+  .about__grid { grid-template-columns: 1.15fr 1fr; gap: 2.4rem; }
+  .hero__cluster { grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+  .hero__aside { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; text-align: left; }
+}
+
+/* ---------------------------------------------- <= 880 · nav collapses --- */
+@media (max-width: 880px) {
+  .nav__links { display: none; }
+  .menu-btn { display: grid; }
+  .xp__row { grid-template-columns: minmax(0,.6fr) minmax(0,2fr); gap: 1.5rem; }
+}
+
+/* ------------------------------------------------------------- <= 720 --- */
+@media (max-width: 720px) {
+  .about__grid { grid-template-columns: 1fr; gap: 2.4rem; }
+  .about__portrait { max-width: 420px; }
+  .about__stats { grid-template-columns: 1fr 1fr; }
+
+  .xp__row { grid-template-columns: 1fr; gap: .6rem; padding-block: 2rem; }
+  .xp__when { display: flex; align-items: baseline; gap: 1rem; }
+  .xp__when .year { font-size: 2.1rem; }
+  .xp__when .span { margin-top: 0; }
+
+  .proj { grid-template-columns: auto 1fr; gap: 1rem 1.2rem; }
+  .proj__go { grid-row: 1; grid-column: 2; justify-self: end; width: 44px; height: 44px; }
+  .proj__main { grid-column: 1 / -1; }
+  .proj__no { grid-column: 1; }
+
+  .skills__grid { grid-template-columns: 1fr 1fr; }
+  .cap--wide, .cap--half, .cap--third { grid-column: span 1; }
+  .cap--wide { grid-column: span 2; }
+
+  .edu__grid { grid-template-columns: 1fr; gap: 2.4rem; }
+}
+
+/* ------------------------------------------------------------- <= 560 --- */
+@media (max-width: 560px) {
+  :root { --nav-h: 60px; }
+  .section { padding-block: clamp(3.4rem, 9vh, 5rem); }
+
+  .hero { padding-top: calc(var(--nav-h) + 1rem); }
+  .hero__telemetry { gap: .7rem 1.2rem; }
+  .hero__aside { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .hero__title { letter-spacing: -0.035em; }
+
+  .about__stats { grid-template-columns: 1fr 1fr; }
+  .btn { padding: .85rem 1.25rem; }
+
+  .skills__grid { grid-template-columns: 1fr; }
+  .cap--wide { grid-column: span 1; }
+
+  .contact__channels { grid-template-columns: 1fr; }
+  .footer__inner { flex-direction: column; align-items: flex-start; gap: 1.6rem; }
+
+  .proj__desc { display: none; } /* keep the index tight on small screens */
+}
+
+/* ------------------------------------------------------------- <= 380 --- */
+@media (max-width: 380px) {
+  :root { --gutter: 1.05rem; }
+  .about__stats { grid-template-columns: 1fr; }
+  /* Stack CTAs full-width so labels never wrap in the tightest column */
+  .hero__cta { flex-direction: column; align-items: stretch; }
+  .hero__cta .btn { width: 100%; justify-content: space-between; }
+}
+
+/* ------------------------------------------ coarse pointer / touch tune --- */
+@media (hover: none), (pointer: coarse) {
+  .cursor, .cursor-dot, .proj-preview { display: none !important; }
+  body[data-cursor="on"] { cursor: auto; }
+  .proj__desc { display: block; }
+  /* restore desc on touch even under 560 where hover-preview is gone */
+}
+
+/* Short-landscape phones: let the hero breathe instead of locking 100svh */
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero { min-height: auto; padding-block: calc(var(--nav-h) + 2rem) 3rem; }
+}

@@ -1,0 +1,9 @@
+# Agent and workspace metadata directories
+.agents/
+.claude/
+.codex/
+.impeccable/
+.vscode/
+.vscode-test/
+node_modules/
+.DS_Store
