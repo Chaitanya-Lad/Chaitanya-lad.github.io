@@ -10,6 +10,23 @@ const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const finePointer = matchMedia("(pointer: fine)");
 const prefersReduced = () => reduceMotion.matches;
 
+/* --------------------------------------------------------- boot handoff --- */
+/* Runs its callback the moment the intro curtain lifts — i.e. when the html
+   element loses `.booting`, set either by the intro module or by the inline
+   failsafe in index.html. Runs immediately when no intro is scheduled (404,
+   capture mode, reduced motion, already-booted). Reveals thus wait for the
+   curtain but can never deadlock behind a stalled intro.                     */
+const whenBooted = (cb) => {
+  // Ready when the handoff fires (`.booted` added as the curtain starts to
+  // lift) or when no intro is running at all (`.booting` never set / removed).
+  const ready = () => doc.classList.contains("booted") || !doc.classList.contains("booting");
+  if (ready()) { cb(); return; }
+  const mo = new MutationObserver(() => {
+    if (ready()) { mo.disconnect(); cb(); }
+  });
+  mo.observe(doc, { attributes: true, attributeFilter: ["class"] });
+};
+
 /* ----------------------------------------------------------- failsafes --- */
 /* Reveals are hidden via html.js. If anything throws before the observers
    attach — or a browser never fires them — force everything visible so content
@@ -17,10 +34,17 @@ const prefersReduced = () => reduceMotion.matches;
 const revealAllNow = () => {
   document.querySelectorAll("[data-reveal], [data-reveal-stagger]").forEach((el) => el.classList.add("is-in"));
   document.querySelectorAll(".hero__title .line > span").forEach((s) => (s.style.transform = "none"));
+  // Lift the intro curtain too, so an early throw can't strand the page.
+  doc.classList.remove("booting"); doc.classList.add("booted");
+  const pre = document.getElementById("preloader");
+  if (pre) pre.setAttribute("data-done", "true");
 };
 window.addEventListener("error", revealAllNow);
 // If the reveal observer hasn't taken over shortly after load, reveal anyway.
+// While the intro is running the hero is *meant* to stay hidden — the boot
+// module and its inline failsafes own the handoff there, so don't trip on it.
 window.addEventListener("load", () => setTimeout(() => {
+  if (doc.classList.contains("booting")) return;
   const hero = document.querySelector(".hero__lead");
   if (hero && getComputedStyle(hero).opacity === "0") revealAllNow();
 }, 1200));
@@ -29,6 +53,82 @@ window.addEventListener("load", () => setTimeout(() => {
 const lerp = (a, b, t) => a + (b - a) * t;
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
+
+/* ========================================================= BOOT / INTRO === */
+/* An oscilloscope acquiring a signal: the beam sweeps a trace into being while
+   telemetry counts up, then it locks and the screen wipes to the hero — whose
+   own live trace picks up where this leaves off. Plays only when scheduled
+   (html.booting); everything else already skipped it before first paint.     */
+(() => {
+  const pre = document.getElementById("preloader");
+  const scheduled = doc.classList.contains("booting");
+
+  const complete = () => {
+    doc.classList.remove("booting");
+    doc.classList.add("booted");
+  };
+
+  // Not our page / not scheduled: make sure the curtain is down and bail.
+  if (!pre || !scheduled) { complete(); return; }
+
+  const wave = pre.querySelector(".preloader__wave");
+  const beam = pre.querySelector(".preloader__beam");
+  const pct  = pre.querySelector(".preloader__pct");
+  const stat = pre.querySelector(".preloader__stat");
+  const fill = pre.querySelector(".preloader__rail > span");
+  const len  = wave ? wave.getTotalLength() : 0;
+  if (wave && len) { wave.style.strokeDasharray = len; wave.style.strokeDashoffset = len; }
+
+  const DUR = 1750;                       // acquisition sweep duration
+  const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+  let startTs = null, raf = null, done = false;
+
+  const render = (p) => {
+    p = clamp(p, 0, 1);
+    if (wave && len) wave.style.strokeDashoffset = (len * (1 - p)).toFixed(1);
+    if (beam && len) {
+      const pt = wave.getPointAtLength(p * len);
+      beam.setAttribute("cx", pt.x.toFixed(1));
+      beam.setAttribute("cy", pt.y.toFixed(1));
+    }
+    if (pct) pct.textContent = String(Math.round(p * 100)).padStart(3, "0");
+    if (fill) fill.style.transform = "scaleX(" + p.toFixed(3) + ")";
+  };
+
+  const dismiss = () => {
+    if (done) return; done = true;
+    if (raf) cancelAnimationFrame(raf);
+    render(1);
+    pre.setAttribute("data-locked", "true");
+    if (stat && stat.firstChild) stat.firstChild.textContent = "Signal locked";
+    // brief lock hold, then lift the curtain and hand off to the hero
+    setTimeout(() => {
+      try { sessionStorage.setItem("cl-booted", "1"); } catch (e) {}
+      pre.setAttribute("data-done", "true");   // start the wipe (still shown via .booting)
+      doc.classList.add("booted");             // hand off → reveals begin as the curtain lifts
+      const teardown = () => {
+        doc.classList.remove("booting");       // now the default display:none applies
+        pre.style.display = "none";
+        pre.removeEventListener("transitionend", teardown);
+      };
+      on(pre, "transitionend", teardown);
+      setTimeout(teardown, 900);               // in case transitionend is missed
+    }, 380);
+  };
+
+  const step = (ts) => {
+    if (startTs == null) startTs = ts;
+    const p = easeOutQuint(Math.min((ts - startTs) / DUR, 1));
+    render(p);
+    if (p < 1) raf = requestAnimationFrame(step);
+    else dismiss();
+  };
+
+  render(0);
+  raf = requestAnimationFrame(step);
+  // Hard stop: a stalled rAF (backgrounded tab, etc.) must never hold the page.
+  setTimeout(dismiss, DUR + 1500);
+})();
 
 /* ============================================================ THEME ENGINE = */
 (() => {
@@ -157,7 +257,7 @@ const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
 })();
 
 /* ======================================================== SCROLL REVEALS = */
-(() => {
+whenBooted(() => {
   const items = document.querySelectorAll("[data-reveal], [data-reveal-stagger]");
   if (!items.length) return;
   if (prefersReduced()) { items.forEach((el) => el.classList.add("is-in")); return; }
@@ -167,7 +267,7 @@ const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
     });
   }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
   items.forEach((el) => io.observe(el));
-})();
+});
 
 /* ===================================================== HERO MASK REVEAL === */
 (() => {
@@ -178,9 +278,10 @@ const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
     s.style.transition = "transform 1s cubic-bezier(.16,1,.3,1)";
     s.style.transitionDelay = 120 + i * 90 + "ms";
   });
-  requestAnimationFrame(() => requestAnimationFrame(() => {
+  // Wait for the intro curtain to lift so the reveal reads as the page booting.
+  whenBooted(() => requestAnimationFrame(() => requestAnimationFrame(() => {
     spans.forEach((s) => (s.style.transform = "translateY(0)"));
-  }));
+  })));
 })();
 
 /* =========================================================== MAGNETIC ==== */
@@ -213,7 +314,7 @@ const on = (el, ev, fn, opts) => el && el.addEventListener(ev, fn, opts);
   const label = ring && ring.querySelector(".cursor__label");
   if (!ring || !dot) return;
 
-  document.body.setAttribute("data-cursor", "on");
+  whenBooted(() => document.body.setAttribute("data-cursor", "on"));
   let mx = innerWidth / 2, my = innerHeight / 2;
   let rx = mx, ry = my;
   let visible = false;

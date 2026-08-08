@@ -565,6 +565,115 @@
 .footer__top .ar { transition: transform var(--dur-2) var(--ease-out-quint); }
 .footer__top:hover .ar { transform: translateY(-3px); }
 
+/* =============================================================== BOOT INTRO =
+   Signal-acquisition preloader. Full-bleed scope screen that sweeps a trace,
+   counts telemetry to a lock, then wipes upward to hand off to the hero.
+   Only present when JS is live and the intro is scheduled (html.booting).
+   ========================================================================== */
+.preloader {
+  position: fixed; inset: 0; z-index: 1000;
+  display: none;                      /* shown only while the intro is scheduled */
+  grid-template-rows: 1fr auto auto auto 1fr;
+  justify-items: center; align-content: center;
+  gap: clamp(1.1rem, 3vh, 1.9rem);
+  padding: var(--gutter);
+  background: var(--bg);
+  /* Reveal-the-page wipe: driven by [data-done] once the lock completes */
+  clip-path: inset(0 0 0 0);
+  transition: clip-path var(--dur-3) var(--ease-in-out);
+}
+/* Only the scheduled-intro state shows it; every other state keeps it gone. */
+html.booting .preloader { display: grid; }
+.preloader__scope,
+.preloader__hud,
+.preloader__rail { grid-row: auto; width: min(78vw, 460px); }
+
+/* Scope screen — a framed panel echoing the hero graticule */
+.preloader__scope {
+  position: relative;
+  aspect-ratio: 16 / 5;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.preloader__scan-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(120% 120% at 50% 50%, #000 30%, transparent 82%);
+  -webkit-mask-image: radial-gradient(120% 120% at 50% 50%, #000 30%, transparent 82%);
+  opacity: .55;
+}
+.preloader__trace { position: absolute; inset: 0; width: 100%; height: 100%; }
+.preloader__base {
+  stroke: var(--line-strong); stroke-width: 1; vector-effect: non-scaling-stroke;
+}
+.preloader__wave {
+  stroke: var(--signal-bright); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 5px var(--signal-line));
+  /* Drawn in by JS via stroke-dashoffset (dasharray set from path length) */
+}
+.preloader__beam { fill: var(--signal-bright); filter: drop-shadow(0 0 6px var(--signal-bright)); }
+
+/* HUD row — status + live percentage, pure telemetry */
+.preloader__hud {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem;
+}
+.preloader__pct {
+  font-variant-numeric: tabular-nums;
+  color: var(--signal);
+}
+.preloader__dots { display: inline-flex; margin-left: .15em; gap: .05em; }
+.preloader__dots i {
+  display: inline-block; opacity: .2;
+  animation: bootDot 1.2s var(--ease-in-out) infinite;
+}
+.preloader__dots i::before { content: "."; }
+.preloader__dots i:nth-child(2) { animation-delay: .18s; }
+.preloader__dots i:nth-child(3) { animation-delay: .36s; }
+@keyframes bootDot { 0%, 60%, 100% { opacity: .2; } 30% { opacity: 1; } }
+
+/* Progress rail — the acquisition fill */
+.preloader__rail {
+  height: 2px; border-radius: var(--radius-pill);
+  background: var(--line); overflow: hidden;
+}
+.preloader__rail > span {
+  display: block; height: 100%; width: 100%;
+  transform: scaleX(0); transform-origin: left center;
+  background: var(--signal);
+  box-shadow: 0 0 8px var(--signal-line);
+  transition: transform .12s linear;
+}
+
+.preloader__brand {
+  grid-row: 5; align-self: end;
+  color: var(--ink-3);
+}
+.preloader__brand .sig { color: var(--signal); }
+
+/* Lock confirmation — the moment acquisition completes */
+.preloader[data-locked="true"] .preloader__wave { filter: drop-shadow(0 0 9px var(--signal-bright)); }
+.preloader[data-locked="true"] .preloader__pct { color: var(--signal-bright); }
+
+/* Curtain lift — wipe up; JS drops it from the layer once the wipe ends */
+.preloader[data-done="true"] { clip-path: inset(0 0 100% 0); pointer-events: none; }
+
+/* The hero title is already masked for every JS page by the baseline REVEALS
+   rule; the intro just delays main.js from unmasking it until the curtain lifts
+   (whenBooted). Nothing extra needed here. */
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader { display: none !important; }
+}
+
 /* ======================================================== CUSTOM CURSOR === */
 .cursor, .cursor-dot { position: fixed; top: 0; left: 0; z-index: 400; pointer-events: none; will-change: transform; }
 .cursor {
@@ -620,4 +729,127 @@ body[data-cursor="on"] a, body[data-cursor="on"] button { cursor: none; }
   .js .hero__title .line > span { transform: none !important; }
   .cursor, .cursor-dot { display: none !important; }
   body[data-cursor="on"] { cursor: auto; }
+}
+
+/* ================================================================= 404 ==== =
+   "Signal lost." A dead scope: the trace flatlines, the readout drops out of
+   range (the one place --raw earns its keep), and the visitor is handed a way
+   back to a locked signal. Same tokens, type, and grain as the whole site.
+   ========================================================================== */
+.nf {
+  position: relative; z-index: 2;
+  min-height: 100svh;
+  display: grid; grid-template-rows: auto 1fr auto;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+  padding-block: clamp(1.4rem, 4vh, 2.4rem);
+}
+.nf__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.nf__code {
+  display: inline-flex; align-items: center; gap: .7rem;
+  font-family: var(--font-mono); font-size: var(--fs-mono);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--raw);
+}
+.nf__code .blip {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--raw);
+  box-shadow: 0 0 0 0 var(--raw);
+  animation: nfBlip 1.9s var(--ease-out) infinite;
+}
+@keyframes nfBlip {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--raw) 55%, transparent); }
+  70%  { box-shadow: 0 0 0 9px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.nf__core {
+  align-self: center;
+  display: grid; gap: clamp(1.6rem, 4vh, 2.6rem);
+}
+
+/* Dead scope panel — the flatline with one last dying spike */
+.nf__scope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 6;
+  max-height: 46svh;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(120% 140% at 50% 0%, var(--surface) 0%, var(--bg-deep) 100%);
+  box-shadow: var(--shadow-lg), inset 0 0 60px -20px rgba(0,0,0,.4);
+  overflow: hidden;
+  isolation: isolate;
+}
+.nf__scope-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(130% 120% at 50% 50%, #000 35%, transparent 88%);
+  -webkit-mask-image: radial-gradient(130% 120% at 50% 50%, #000 35%, transparent 88%);
+  opacity: .5;
+}
+.nf__flat { position: absolute; inset: 0; width: 100%; height: 100%; }
+.nf__flat-base { stroke: var(--line-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.nf__flat-line {
+  stroke: var(--signal-bright); stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 5px var(--signal-line));
+  stroke-dasharray: 1600; stroke-dashoffset: 1600;
+  animation: nfDraw 2.6s var(--ease-out) .2s forwards;
+}
+@keyframes nfDraw { to { stroke-dashoffset: 0; } }
+/* huge 404, ghosted into the scope glass behind the trace */
+.nf__ghost {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(6rem, 26vw, 20rem); line-height: 1;
+  letter-spacing: -0.05em; color: var(--ink);
+  opacity: .05; user-select: none; z-index: -1;
+}
+
+.nf__lead { display: grid; gap: 1.1rem; max-width: 56ch; }
+.nf__lead h1 {
+  font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+  font-weight: 700; line-height: .98; letter-spacing: -0.045em;
+}
+.nf__lead h1 .sig { color: var(--signal); }
+.nf__lead p { color: var(--ink-2); font-size: var(--fs-lead); line-height: 1.55; max-width: 48ch; }
+
+.nf__actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: .4rem; }
+
+/* Quick-jump index back into the real sections — reads as a channel list */
+.nf__jumps {
+  margin-top: .4rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+}
+.nf__jump {
+  background: var(--surface); padding: 1rem 1.15rem;
+  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  transition: background var(--dur-2) var(--ease-out);
+}
+.nf__jump:hover { background: var(--surface-2); }
+.nf__jump .jk { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.nf__jump .jv { font-weight: 600; color: var(--ink); display: inline-flex; align-items: center; gap: .45rem; }
+.nf__jump .jv svg { width: 13px; height: 13px; color: var(--signal); opacity: 0; transform: translateX(-4px); transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out); }
+.nf__jump:hover .jv svg { opacity: 1; transform: translateX(0); }
+
+.nf__foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-top: 1.4rem; border-top: 1px solid var(--line);
+  font-family: var(--font-mono); font-size: var(--fs-micro);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3);
+}
+.nf__foot .sig { color: var(--signal); }
+
+@media (max-width: 560px) {
+  .nf__scope { aspect-ratio: 4 / 3; max-height: 40svh; }
+  .nf__foot { flex-direction: column; align-items: flex-start; gap: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf__flat-line { animation: none; stroke-dashoffset: 0; }
+  .nf__code .blip { animation: none; }
 }

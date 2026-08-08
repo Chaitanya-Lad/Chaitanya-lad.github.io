@@ -26,13 +26,15 @@
   <link rel="preload" href="assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
 
-  <!-- Prevent theme flash + gate reveal animations: run before first paint -->
+  <!-- Prevent theme flash + gate reveal/intro animations: run before first paint -->
   <script>
     (function () {
       var el = document.documentElement;
       var qs = new URLSearchParams(location.search);
+      var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var capture = qs.has("settled");
       // ?settled skips reveal-hiding → final composition with no animation wait (capture/audit aid)
-      if (!qs.has("settled")) el.classList.add("js");
+      if (!capture) el.classList.add("js");
       try {
         var forced = qs.get("theme");
         var s = localStorage.getItem("cl-theme");
@@ -42,6 +44,11 @@
       } catch (e) {
         el.setAttribute("data-theme", "dark");
       }
+      // Signal-acquisition intro: play once per session; never in capture or
+      // reduced-motion. Decided pre-paint so the curtain never flashes.
+      var booted = false;
+      try { booted = sessionStorage.getItem("cl-booted") === "1"; } catch (e) {}
+      el.classList.add((capture || reduce || booted) ? "no-boot" : "booting");
     })();
   </script>
 
@@ -77,6 +84,44 @@
   <a class="skip" href="#main">Skip to content</a>
   <div class="grain" aria-hidden="true"></div>
   <div class="theme-wipe" aria-hidden="true"></div>
+
+  <!-- ==================================================== BOOT / INTRO ==== -->
+  <!-- Signal acquisition: the scope powers on, the beam sweeps in a trace,
+       telemetry counts up to a lock, then the screen wipes to the page. JS-only
+       (html.js), once per session, and unable to trap content — see failsafe. -->
+  <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="preloader__scope" aria-hidden="true">
+      <span class="preloader__scan-grid"></span>
+      <svg class="preloader__trace" viewBox="0 0 640 180" preserveAspectRatio="none" fill="none">
+        <path class="preloader__base" d="M0 90 H640" />
+        <path class="preloader__wave"
+              d="M0 90 H140 L150 90 L160 74 L168 96 L176 40 L184 140 L192 78 L200 90 H250 Q300 58 350 90 T450 90 L470 90 L482 72 L494 108 L506 90 H640" />
+        <circle class="preloader__beam" r="3.4" cx="0" cy="90" />
+      </svg>
+    </div>
+    <div class="preloader__hud" aria-hidden="true">
+      <span class="preloader__stat readout">Acquiring signal<span class="preloader__dots"><i></i><i></i><i></i></span></span>
+      <span class="preloader__pct readout">000</span>
+    </div>
+    <span class="preloader__rail" aria-hidden="true"><span></span></span>
+    <span class="preloader__brand readout">Chaitanya Lad — <span class="sig">signal → system</span></span>
+  </div>
+
+  <script>
+    /* Failsafe: if the intro module never runs (main.js blocked or errored),
+       lift the curtain and unlock scroll so content can never be trapped. */
+    (function () {
+      var kill = function () {
+        var d = document.documentElement;
+        if (d.classList.contains("booted")) return;
+        d.classList.remove("booting"); d.classList.add("booted");
+        var p = document.getElementById("preloader");
+        if (p) p.setAttribute("data-done", "true");
+      };
+      window.addEventListener("load", function () { setTimeout(kill, 4000); });
+      setTimeout(kill, 7000);
+    })();
+  </script>
 
   <!-- Custom cursor (desktop, JS-enabled) -->
   <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>

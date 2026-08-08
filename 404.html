@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" data-theme="dark" class="no-boot">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Signal lost — 404 · Chaitanya Lad</title>
+  <meta name="description" content="404 — that page isn't on the wire. The trace went flat. Head back to a locked signal on Chaitanya Lad's portfolio." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0b0c09" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f2eee4" media="(prefers-color-scheme: light)" />
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" href="/assets/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Prevent theme flash: run before first paint. No intro on this page. -->
+  <script>
+    (function () {
+      var el = document.documentElement;
+      try {
+        var s = localStorage.getItem("cl-theme");
+        var t = s || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        el.setAttribute("data-theme", t);
+      } catch (e) {
+        el.setAttribute("data-theme", "dark");
+      }
+      el.classList.add("js");
+    })();
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+
+<body data-cursor="off">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="theme-wipe" aria-hidden="true"></div>
+
+  <!-- Custom cursor (desktop, JS-enabled) -->
+  <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ============================================================ NAV ==== -->
+  <header class="nav" data-scrolled="false" data-hidden="false">
+    <div class="nav__inner">
+      <a class="brand" href="/" aria-label="Chaitanya Lad — home" data-cursor-plain>
+        <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect x="1" y="1" width="30" height="30" rx="8" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.2"/>
+          <path d="M4 17.5 L9 17.5 L11.5 9 L15.5 23 L18.5 13.5 L20.5 17.5 L28 17.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__name">Chaitanya Lad<span class="brand__dot">.</span></span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav__link" href="/#about"><span class="idx">01</span> About</a>
+        <a class="nav__link" href="/#work"><span class="idx">02</span> Work</a>
+        <a class="nav__link" href="/#projects"><span class="idx">03</span> Projects</a>
+        <a class="nav__link" href="/#foundations"><span class="idx">04</span> Foundations</a>
+        <a class="nav__link" href="/#contact"><span class="idx">05</span> Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle theme">
+          <svg class="t-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.6M12 18.9v2.6M21.5 12h-2.6M5.1 12H2.5M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8M18.7 18.7l-1.8-1.8M7.1 7.1 5.3 5.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <svg class="t-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.2A8 8 0 0 1 9.8 4 7.2 7.2 0 1 0 20 14.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="menu-btn__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================================================== MOBILE MENU ==== -->
+  <nav class="mobile-menu" id="mobileMenu" data-open="false" aria-label="Mobile" aria-hidden="true">
+    <ol>
+      <li><a href="/#about"><span class="idx">01</span> About</a></li>
+      <li><a href="/#work"><span class="idx">02</span> Work</a></li>
+      <li><a href="/#projects"><span class="idx">03</span> Projects</a></li>
+      <li><a href="/#foundations"><span class="idx">04</span> Foundations</a></li>
+      <li><a href="/#contact"><span class="idx">05</span> Contact</a></li>
+    </ol>
+    <div class="mobile-menu__foot">
+      <a class="ulink" href="https://github.com/chaitanya-lad" target="_blank" rel="noopener">GitHub</a>
+      <a class="ulink" href="https://in.linkedin.com/in/chaitanya-b-lad-14-apr" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="ulink" href="mailto:chaitanyablad3@gmail.com">Email</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <div class="container nf">
+      <!-- Top telemetry: out-of-range readout -->
+      <div class="nf__top">
+        <span class="nf__code"><span class="blip" aria-hidden="true"></span> Error 404 · signal out of range</span>
+        <span class="readout">GET · no route</span>
+      </div>
+
+      <div class="nf__core">
+        <!-- Dead scope: the trace flatlines, 404 ghosted into the glass -->
+        <div class="nf__scope" data-tilt>
+          <span class="nf__scope-grid" aria-hidden="true"></span>
+          <span class="nf__ghost" aria-hidden="true">404</span>
+          <svg class="nf__flat" viewBox="0 0 640 240" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            <path class="nf__flat-base" d="M0 120 H640" />
+            <path class="nf__flat-line"
+                  d="M0 120 H272 L284 120 L290 82 L298 172 L306 104 L314 120 L326 120 L334 114 L342 126 L350 120 H640" />
+          </svg>
+        </div>
+
+        <div class="nf__lead">
+          <h1>This page went <span class="sig">off the wire.</span></h1>
+          <p>
+            The address you followed doesn't resolve to anything on the board — a dead channel,
+            a moved page, or a typo in the path. The rest of the signal is still live.
+          </p>
+          <div class="nf__actions">
+            <a class="btn btn--primary" href="/" data-magnetic data-cursor="view">
+              Back to a locked signal
+              <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="btn btn--ghost" href="/#projects" data-magnetic>
+              See the projects
+              <span class="btn__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+
+          <!-- Quick-jump channel list back into the real sections -->
+          <div class="nf__jumps">
+            <a class="nf__jump" href="/#about" data-cursor="view">
+              <span class="jk">01</span>
+              <span class="jv">About <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="nf__jump" href="/#work" data-cursor="view">
+              <span class="jk">02</span>
+              <span class="jv">Work <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="nf__jump" href="/#projects" data-cursor="view">
+              <span class="jk">03</span>
+              <span class="jv">Projects <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+            <a class="nf__jump" href="/#contact" data-cursor="view">
+              <span class="jk">05</span>
+              <span class="jv">Contact <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nf__foot">
+        <span>Chaitanya Lad — Surat, India</span>
+        <span><span class="sig">signal → system</span> · error 404</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="/assets/js/main.js" type="module"></script>
+</body>
+</html>
