@@ -76,15 +76,6 @@ export const ServiceCard: FC<ServiceCardProps> = ({
               <span className="text-[7rem] font-black leading-none tracking-tighter text-white/10 md:text-[10rem]">
                 {padIndex(index + 1)}
               </span>
-              <div className="absolute right-0 top-4 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/[0.06] backdrop-blur-md md:h-20 md:w-20">
-                <img
-                  src={service.icon}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="h-8 w-8 opacity-90 md:h-9 md:w-9"
-                />
-              </div>
             </div>
 
             <ServiceBullets bullets={service.bullets} />

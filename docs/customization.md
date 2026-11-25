@@ -72,7 +72,7 @@ which lands near 80&nbsp;KB against several megabytes for the live embed.
 Replacing the parallax plates changes the whole mood of the hero. Keep the same
 filenames and you won't have to touch `parallax-background.tsx`.
 
-**Also replace:** `Hasnain.pdf` in the repo root (the résumé the site links to)
+**Also replace:** `Chaitanya_Lad.pdf` in the `public/` directory (the résumé the site links to)
 and, if you delete it, the link that points at it.
 
 ---
@@ -211,7 +211,7 @@ your new section without stopping.
 
 ## Before you deploy
 
-- [ ] No "Hasnain" left: `grep -ri "hasnain" app components constants public`
+- [ ] Personal content and metadata use your name
 - [ ] Résumé PDF replaced or removed
 - [ ] The 3D model is yours, or you kept its attribution
 - [ ] Project screenshots are yours to publish

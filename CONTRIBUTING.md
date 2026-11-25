@@ -74,7 +74,7 @@ devtools throttle on.
 ## Security
 
 Found something exploitable? **Don't open a public issue.** Email
-`hasnainirfandeveloper@gmail.com` directly.
+`chaitanyablad3@gmail.com` directly.
 
 Never commit a `.env` or a real credential. `.env*` is gitignored, so keep it that
 way.

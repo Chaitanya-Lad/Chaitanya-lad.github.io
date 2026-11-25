@@ -6,7 +6,7 @@
 including a sitemap, structured data and Open Graph. The GitHub Pages deployment is static; the
 contact form opens a prefilled email in the visitor's email app.
 
-[**Live Demo**](https://www.hasnainirfan.com) · [Documentation](docs/) · [Deploy](docs/deployment.md)
+[**Live Demo**](https://chaitanya-lad.github.io) · [Documentation](docs/) · [Deploy](docs/deployment.md)
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
@@ -15,7 +15,7 @@ contact form opens a prefilled email in the visitor's email app.
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg)](LICENSE)
 
-[![Developer portfolio website template with 3D animated hero, built with Next.js, Three.js and Tailwind CSS](docs/images/screenshot.jpg)](https://www.hasnainirfan.com)
+[![Developer portfolio website template with 3D animated hero, built with Next.js, Three.js and Tailwind CSS](docs/images/screenshot.jpg)](https://chaitanya-lad.github.io)
 
 </div>
 
@@ -55,8 +55,8 @@ Motion · GitHub Pages
 ## Quick start
 
 ```bash
-git clone https://github.com/HasnainIrfan/myportfolio.git
-cd myportfolio
+git clone https://github.com/Chaitanya-Lad/Chaitanya-lad.github.io.git
+cd Chaitanya-lad.github.io
 npm install
 npm run dev
 ```
@@ -104,7 +104,7 @@ See [`docs/deployment.md`](docs/deployment.md) for details and static-hosting li
 Code is [MIT](LICENSE). The content and assets are **not** - see [`NOTICE`](NOTICE).
 Replace them before deploying:
 
-- Personal content (name, biography, project write-ups, testimonials, résumé) belongs to Hasnain Irfan
+- Personal content (name, biography, project write-ups, testimonials, résumé) belongs to Chaitanya Lad
 - `public/models/*.glb` is third-party fan art from Sketchfab, so **check its licence and keep the attribution**
 - Project screenshots and client logos belong to their owners
 

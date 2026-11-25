@@ -6,7 +6,6 @@ export const SERVICES: Service[] = [
     title: "Product Lifecycle Coordination",
     description:
       "End-to-end product ownership from customer discovery and feasibility through validation and software delivery.",
-    icon: "/assets/logos/react.svg",
     bullets: [
       "Product planning & roadmap definition",
       "Stakeholder alignment & cross-functional coordination",
@@ -18,7 +17,6 @@ export const SERVICES: Service[] = [
     title: "Requirements Analysis & Documentation",
     description:
       "Comprehensive requirements engineering with BRD, FRD, SRS, DRS and change request management.",
-    icon: "/assets/logos/tailwindcss.svg",
     bullets: [
       "Business & functional requirements (BRD/FRD)",
       "System & design specifications (SRS/DRS)",
@@ -30,7 +28,6 @@ export const SERVICES: Service[] = [
     title: "Verification & Validation",
     description:
       "Medical-device quality assurance with V&V planning, test case design, regression testing and defect tracking.",
-    icon: "/assets/logos/javascript.svg",
     bullets: [
       "V&V planning & traceability matrices",
       "Manual & beta validation testing",
@@ -42,7 +39,6 @@ export const SERVICES: Service[] = [
     title: "Software Delivery & Technical Integration",
     description:
       "Hands-on development coordination with Python, IoT, hardware-software integration and release management.",
-    icon: "/assets/logos/react.svg",
     bullets: [
       "Python modules for sensor acquisition & device communication",
       "Hardware-software integration & touchscreen workflows",
