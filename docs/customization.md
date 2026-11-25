@@ -117,8 +117,7 @@ Two places outside the theme block also hold colour and should match:
 **`constants/seo-constants.ts`** is the single source. Site-wide defaults:
 `SITE_TITLE`, `SITE_DESCRIPTION`, `SITE_TAGLINE`, `SITE_KEYWORDS`, `OG_IMAGE`.
 Per-route copy: `HOME_TITLE` and `HOME_DESCRIPTION` for the portfolio,
-`ADMIN_TITLE` / `ADMIN_LOGIN_TITLE` and their descriptions for the private
-dashboard. `SITE_SECTIONS` lists the on-page anchors and feeds the JSON-LD.
+and `SITE_SECTIONS` lists the on-page anchors and feeds the JSON-LD.
 
 Write the description for a human and keep it under about 160 characters. It is
 what shows under your link in search results and on social cards. Titles read
@@ -128,7 +127,6 @@ Everything downstream reads from it:
 
 - `app/layout.tsx`: site-wide defaults, title template, Open Graph, Twitter card
 - `app/page.tsx`: the home title, meta description, canonical and profile card
-- `app/admin/layout.tsx` and the admin pages: titles plus `noindex, nofollow`
 - `app/sitemap.ts`, `app/robots.ts`, `app/manifest.ts`
 - `components/seo/json-ld.tsx`: Person, WebSite, ProfilePage, section ItemList
   and ProfessionalService structured data
@@ -195,12 +193,9 @@ mountain layers and `planets.webp` are desktop only.
 
 ## 6. Trimming what you don't need
 
-**Drop the contact backend.** You do not have to delete anything. Leave the
-two Supabase variables unset and the site runs with the form pointing visitors
-at your email address and `/admin` showing a setup panel. To remove the code
-entirely: delete `app/api/contact/`, `app/admin/`, `lib/admin/`,
-`lib/supabase/`, `components/admin/`, `supabase/` and `proxy.ts`, then point the
-contact form at a `mailto:` link.
+**Contact form and admin.** The current GitHub Pages build is static: the form
+opens a prefilled email, and there is no `/admin` page or server-side contact
+API. See [deployment.md](deployment.md) for the hosting limitations.
 
 **Drop the shader globe** (the heaviest piece on the page): remove
 `<ThemedGlobe />` from `components/portfolio/home-page.tsx`, then delete
@@ -223,6 +218,6 @@ your new section without stopping.
 - [ ] `NEXT_PUBLIC_SITE_URL` set to your domain
 - [ ] `public/og.jpg` replaced with your own preview
 - [ ] `/sitemap.xml` and `/robots.txt` resolve on the live site
-- [ ] Your own Supabase project, with your own admin in `admin_users`
+- [ ] GitHub Pages source set to **GitHub Actions**
 - [ ] `npm run build` passes
 - [ ] `LICENSE` updated to your name

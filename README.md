@@ -1,11 +1,10 @@
 <div align="center">
 
-# Portfolio Website Template: Next.js, 3D Hero, Admin Panel & SEO
+# Portfolio Website: Next.js, 3D Hero & SEO
 
-**A free, production-ready developer portfolio template.** 3D animated hero, a built-in admin
-panel that captures your contact-form leads, and full SEO out of the box: sitemap, structured data
-and Open Graph. Build your personal website with Next.js 16, React 19, TypeScript, Three.js and
-Tailwind CSS v4.
+**A Next.js portfolio website.** 3D animated hero, responsive project showcase, and SEO features
+including a sitemap, structured data and Open Graph. The GitHub Pages deployment is static; the
+contact form opens a prefilled email in the visitor's email app.
 
 [**Live Demo**](https://www.hasnainirfan.com) · [Documentation](docs/) · [Deploy](docs/deployment.md)
 
@@ -22,13 +21,12 @@ Tailwind CSS v4.
 
 ## What you get
 
-Most portfolio templates give you a page and stop. This one also tells you who got in touch, and
-makes sure people can find you.
+This portfolio includes a 3D animated hero, project showcase and search-engine metadata.
 
 | | |
 | --- | --- |
 | **3D portfolio** | Animated GLTF hero, a GPU shader globe that travels with your scroll, a pinned horizontal case-study showcase, and scroll-driven reveals throughout |
-| **Admin panel** | Enquiries save to *your* Supabase database and appear in a private inbox at `/admin` with search, pagination and delete. No form-service fee, no one else holding your leads |
+| **Contact form** | Opens a prefilled message in the visitor's email app; the visitor sends it directly |
 | **SEO ready** | `sitemap.xml`, `robots.txt`, canonical URLs, Open Graph, Twitter cards and JSON-LD structured data, all generated from your own content |
 
 Every string, project and testimonial lives in `constants/`, one typed file per domain. Fork it,
@@ -40,13 +38,11 @@ edit that folder, and it is your portfolio, with no component changes needed.
 experience timeline · skills marquee · particle field · parallax background · responsive from 320px ·
 respects `prefers-reduced-motion`
 
-**Admin & leads:** contact form → your database · private inbox with search and pagination ·
-Supabase Auth + an `admin_users` allowlist · an acknowledgement email to the visitor and the lead to
-you · **zero secrets in the repo**
+**Contact:** email handoff from the static portfolio; server-backed submissions are not available
+on GitHub Pages
 
 **SEO:** sitemap · robots · canonical · Open Graph + Twitter cards · JSON-LD (`Person`, `WebSite`,
-`ProfilePage`, `ProfessionalService`) · Web App Manifest · generated favicons · self-hosted fonts ·
-`/admin` excluded from indexing
+`ProfilePage`, `ProfessionalService`) · Web App Manifest · generated favicons · self-hosted fonts
 
 **Code:** TypeScript strict · 0 lint errors · no file over 250 lines · organised by kind
 (`constants/` `types/` `hooks/` `helpers/` `animations/`) · runs with an empty `.env`
@@ -54,7 +50,7 @@ you · **zero secrets in the repo**
 ## Tech stack
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Three.js + React Three Fiber ·
-Motion · Supabase (Postgres, Auth, RLS, Edge Functions) · Vercel
+Motion · GitHub Pages
 
 ## Quick start
 
@@ -70,17 +66,12 @@ builds, deploys and runs with an empty `.env`.
 
 ## Environment variables
 
-Four, all optional:
-
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Your domain. Drives the sitemap, canonical and Open Graph URLs. |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console token. Renders the verification meta tag. |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon key |
 
-There are **no server-only secrets**: no admin password, no session key, no service-role key, no
-SMTP credentials. Row-level security does the enforcing, and SMTP lives in Supabase.
+Both variables are optional for the GitHub Pages deployment.
 
 ## Make it yours
 
@@ -94,18 +85,18 @@ Full walkthrough: [`docs/customization.md`](docs/customization.md)
 
 ## Deployment
 
-Import the repo on Vercel and ship. There is nothing to configure. Add the Supabase values when you want the
-contact form and admin panel. Setup for the database, admin account and lead emails:
-[`docs/deployment.md`](docs/deployment.md).
+The repository deploys to GitHub Pages through the workflow in
+`.github/workflows/deploy.yml`. Select **GitHub Actions** as the Pages source in repository settings.
+See [`docs/deployment.md`](docs/deployment.md) for details and static-hosting limitations.
 
 ## Documentation
 
 | | |
 | --- | --- |
 | [`docs/customization.md`](docs/customization.md) | Making it your own, end to end |
-| [`docs/deployment.md`](docs/deployment.md) | Vercel, Supabase, Edge Function, checklist |
-| [`docs/admin.md`](docs/admin.md) | Admin panel: auth model, SQL, lead emails |
-| [`docs/architecture.md`](docs/architecture.md) | Project structure, the 3D layer, auth, database |
+| [`docs/deployment.md`](docs/deployment.md) | GitHub Pages setup and static-hosting limitations |
+| [`docs/admin.md`](docs/admin.md) | Archived notes for the former server-backed admin |
+| [`docs/architecture.md`](docs/architecture.md) | Project structure and the 3D layer |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Conventions and PR flow |
 
 ## Credits & licensing

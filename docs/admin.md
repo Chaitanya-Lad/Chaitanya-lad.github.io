@@ -1,5 +1,9 @@
 # The admin inbox
 
+> **Archived:** These instructions describe the earlier server-backed version.
+> The current GitHub Pages deployment is static and does not include `/admin`
+> or `/api/contact`. See [deployment.md](deployment.md) for the active setup.
+
 A private page at `/admin` listing everything sent through the contact form.
 Sign-in is Supabase Auth; who counts as an admin is a row in a table you control
 from the SQL editor.

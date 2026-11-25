@@ -3,6 +3,10 @@
 How the pieces fit. Read this before changing anything structural, because several of
 the decisions here look arbitrary until you know what they are avoiding.
 
+> The admin and contact API entries below describe the former server-backed
+> version. They are not included in the current static GitHub Pages deployment.
+> See [deployment.md](deployment.md) for the active deployment setup.
+
 ## Project structure
 
 Organised by *kind*, so anything you want to change has one obvious home. No

@@ -16,8 +16,7 @@ import { Alert } from "@/components/portfolio/alert";
 import { FloatingField } from "./floating-field";
 
 export const ContactForm: FC = () => {
-  const { formData, update, completion, isLoading, alert, handleSubmit } =
-    useContactForm();
+  const { formData, update, completion, alert, handleSubmit } = useContactForm();
 
   const completionValue = useMotionValue(completion);
   useEffect(() => completionValue.set(completion), [completion, completionValue]);
@@ -30,7 +29,7 @@ export const ContactForm: FC = () => {
   const pointerY = useMotionValue(50);
   const glow = useMotionTemplate`radial-gradient(600px circle at ${pointerX}% ${pointerY}%, rgba(234,72,132,0.15), transparent 40%)`;
 
-  const disabled = isLoading || completion < 1;
+  const disabled = completion < 1;
 
   return (
     <>
@@ -118,30 +117,23 @@ export const ContactForm: FC = () => {
           >
             <AnimatePresence mode="wait">
               <motion.span
-                key={isLoading ? "loading" : "idle"}
+                key="idle"
                 variants={swapLabel}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 className="inline-flex items-center gap-2"
               >
-                {isLoading ? (
-                  <>
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send message
-                    <span aria-hidden>→</span>
-                  </>
-                )}
+                <>
+                  Open email app
+                  <span aria-hidden>→</span>
+                </>
               </motion.span>
             </AnimatePresence>
           </motion.button>
 
           <p className="text-center text-[11px] text-neutral-500">
-            By sending, you agree to be contacted at the email provided.
+            This opens your email app; send the message there to complete delivery.
           </p>
         </form>
       </motion.div>

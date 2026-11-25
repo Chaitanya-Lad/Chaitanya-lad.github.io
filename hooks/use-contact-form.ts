@@ -3,11 +3,10 @@
 import { useCallback, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   ALERT_DURATION,
-  CONTACT_ERROR_MESSAGE,
-  CONTACT_SUCCESS_MESSAGE,
   INITIAL_FORM_STATE,
   REQUIRED_FIELDS,
 } from "@/constants/contact-constants";
+import { CONTACT_EMAIL } from "@/constants/social-constants";
 import {
   type AlertState,
   type AlertType,
@@ -23,7 +22,6 @@ const HIDDEN_ALERT: AlertState = {
 
 export const useContactForm = () => {
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_STATE);
-  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<AlertState>(HIDDEN_ALERT);
   const alertTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -46,35 +44,20 @@ export const useContactForm = () => {
   }, []);
 
   const handleSubmit = useCallback(
-    async (event: FormEvent) => {
+    (event: FormEvent) => {
       event.preventDefault();
-      setIsLoading(true);
-
-      try {
-        const response = await fetch("/api/contact", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        });
-        const data = (await response.json().catch(() => ({}))) as {
-          error?: string;
-        };
-
-        if (!response.ok) throw new Error(data.error || "Submission failed.");
-
-        setFormData(INITIAL_FORM_STATE);
-        showAlert("success", CONTACT_SUCCESS_MESSAGE);
-      } catch (error) {
-        showAlert(
-          "danger",
-          error instanceof Error ? error.message : CONTACT_ERROR_MESSAGE
-        );
-      } finally {
-        setIsLoading(false);
-      }
+      const subject = encodeURIComponent(`Portfolio inquiry from ${formData.name}`);
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
+      );
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
+      showAlert(
+        "success",
+        "Your email app should open. Send the message there to complete delivery."
+      );
     },
     [formData, showAlert]
   );
 
-  return { formData, update, completion, isLoading, alert, handleSubmit };
+  return { formData, update, completion, alert, handleSubmit };
 };
