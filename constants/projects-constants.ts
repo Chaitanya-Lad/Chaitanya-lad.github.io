@@ -40,9 +40,9 @@ export const MY_PROJECTS: Project[] = [
       "Configured Tailscale for private remote access.",
       "Building AI-assisted n8n automations: using AI to understand requirements, design workflows, develop nodes/logic, test executions and deploy workflows.",
     ],
-    href: "https://chaitanya-lad.github.io/",
+    href: "https://homer.chaitusnas.shop/",
     logo: "",
-    image: "/projects/docker-lab.webp",
+    image: "/assets/Screenshot From 2026-11-25 16-33-26.png",
     accent: "from-royal/40 to-lavender/10",
     tags: [
       { id: 1, name: "Docker", path: "/assets/logos/react.svg" },
