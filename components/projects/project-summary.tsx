@@ -18,49 +18,56 @@ export const ProjectSummary: FC<ProjectSummaryProps> = ({
   total,
   onOpen,
 }) => (
-  <div className="order-2 lg:order-1 lg:col-span-5">
+  <div className="order-2 flex flex-col justify-between lg:order-1 lg:col-span-7">
+    <div>
     <motion.p
       {...reveal()}
       transition={{ duration: 0.5 }}
-      className="text-[10px] uppercase tracking-[0.4em] text-neutral-400"
+      className="text-[10px] uppercase tracking-[0.4em] text-white/60"
     >
       {formatCounter(index, total)} · {project.category}
     </motion.p>
 
     <motion.h3
       {...reveal()}
-      className="mt-3 text-4xl font-bold leading-[1.05] text-white md:text-6xl"
+      className="mt-6 max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight text-white md:text-6xl"
     >
       {project.title}
     </motion.h3>
 
     <motion.p
       {...reveal(0.1)}
-      className="mt-5 max-w-xl leading-relaxed text-neutral-400"
+      className="mt-5 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
     >
       {project.description}
     </motion.p>
+    </div>
 
-    <motion.div {...reveal(0.2)} className="mt-6 flex flex-wrap gap-2">
-      {project.tags.map((tag) => (
-        <span
-          key={tag.id}
-          className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-neutral-300"
-        >
-          {tag.name}
-        </span>
-      ))}
-    </motion.div>
-
-    <motion.div {...reveal(0.3)} className="mt-7 flex flex-wrap gap-3">
+    <motion.div {...reveal(0.3)} className="mt-8 flex flex-wrap gap-3">
       <a
         href={project.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="btn-primary"
+        className="group inline-flex items-center gap-4 text-white"
       >
-        <span>Visit Live</span>
-        <span aria-hidden>↗</span>
+        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover:scale-110">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-5 w-5"
+            aria-hidden
+          >
+            <path d="M7 17L17 7" />
+            <path d="M7 7h10v10" />
+          </svg>
+        </span>
+        <span className="text-base font-medium tracking-tight md:text-lg">
+          Visit live
+        </span>
       </a>
       <button type="button" onClick={onOpen} className="btn-ghost">
         <span>Case study</span>

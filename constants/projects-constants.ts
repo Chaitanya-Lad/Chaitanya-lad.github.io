@@ -15,9 +15,9 @@ export const MY_PROJECTS: Project[] = [
       "Coordinate development workflows, feature behavior, calculation logic, edge cases and integration needs.",
       "Review test coverage, V&V outcomes, regression risks and coordinate release readiness.",
     ],
-    href: "https://strumed.com",
+    href: "https://strumed.com/products/esr-analyser/#ed120",
     logo: "",
-    image: "/projects/inflaquick.webp",
+    image: "/assets/infl-QUICK.png",
     accent: "from-aqua/40 to-royal/10",
     tags: [
       { id: 1, name: "BRD / FRD / SRS / DRS", path: "/assets/logos/react.svg" },

@@ -39,13 +39,13 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
   };
 
   return (
-    <div className="order-1 lg:order-2 lg:col-span-7">
+    <div className="order-1 flex flex-col justify-between gap-6 lg:order-2 lg:col-span-5">
       <div style={{ perspective: "1400px" }} className="relative">
         <motion.div
           onMouseMove={handleMove}
           onMouseLeave={handleLeave}
           style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-          className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10 bg-midnight shadow-2xl shadow-black/50 md:aspect-[16/10]"
+          className="relative aspect-[16/8] overflow-hidden rounded-3xl border border-white/10 bg-midnight shadow-2xl shadow-black/50 lg:aspect-[16/10]"
         >
           <div
             className={`absolute inset-0 bg-gradient-to-br ${project.accent} opacity-40`}
@@ -63,7 +63,11 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
               alt={`${project.title} homepage`}
               fill
               sizes="(min-width: 1024px) 58vw, 100vw"
-              className="pointer-events-none select-none object-cover object-top"
+              className={`pointer-events-none select-none ${
+                project.image === "/assets/infl-QUICK.png"
+                  ? "object-contain p-6 md:p-10"
+                  : "object-cover object-top"
+              }`}
             />
           ) : (
             showPreview && (
@@ -130,6 +134,27 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
           <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
         </motion.div>
       </div>
+
+      <motion.ul
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="space-y-3"
+      >
+        <li className="mb-2 text-[10px] uppercase tracking-[0.3em] text-white/50">
+          What&apos;s included
+        </li>
+        {project.subDescription.slice(0, 3).map((item) => (
+          <li
+            key={item}
+            className="flex items-start gap-3 text-sm text-white/85 md:text-base"
+          >
+            <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </motion.ul>
     </div>
   );
 };
