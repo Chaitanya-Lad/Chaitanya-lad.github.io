@@ -47,6 +47,14 @@ export const AboutBio: FC = () => {
         <a href="#work" className="btn-ghost">
           <span>See past work</span>
         </a>
+        <a
+          href="/Chaitanya_Lad.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-ghost"
+        >
+          <span>Resume</span>
+        </a>
       </div>
     </motion.div>
   );

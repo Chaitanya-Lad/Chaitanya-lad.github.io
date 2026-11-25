@@ -66,6 +66,14 @@ export const HeroText: FC = () => {
           <a href="#work" className="btn-ghost">
             <span>View My Work</span>
           </a>
+          <a
+            href="/Chaitanya_Lad.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost"
+          >
+            <span>Resume</span>
+          </a>
         </div>
       </div>
 
@@ -121,6 +129,14 @@ export const HeroText: FC = () => {
           </a>
           <a href="#work" className="btn-ghost w-full">
             <span>View My Work</span>
+          </a>
+          <a
+            href="/Chaitanya_Lad.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost w-full"
+          >
+            <span>Resume</span>
           </a>
         </div>
       </div>
