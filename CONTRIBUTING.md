@@ -12,7 +12,7 @@ source project, but issues and PRs are welcome, and forks are the whole point.
 - Browser/device compatibility fixes (particularly Safari and low-end mobile)
 
 **Not in scope:**
-- Changes to the personal content: projects, testimonials, work history, the
+- Changes to the personal content: projects, work history, the
   résumé. That's mine; fork it and replace it with yours.
 - Rewrites into another framework or styling system
 - New dependencies that duplicate something already here

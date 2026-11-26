@@ -52,7 +52,7 @@ app/page.tsx  →  <HomePage />  (client)
                    ├─ <ThemedGlobe />       WebGL, fixed, z-0
                    └─ <div class="relative z-10">
                         Navbar · Hero · About · Services · Projects
-                        Experiences · Testimonial · Contact · Footer
+                        Experiences · Contact · Footer
 ```
 
 `Hero` and `ThemedGlobe` are pulled in with `dynamic(..., { ssr: false })`.
@@ -209,7 +209,7 @@ component stays a renderer.
 
 ## Content and data
 
-Every string, project, testimonial and skill on the page comes from
+Every string, project, experience and skill on the page comes from
 `constants/portfolio-constants.ts`, typed against `types/portfolio-types.ts`.
 No component holds copy. This is what makes forking cheap. See
 [`customization.md`](customization.md).

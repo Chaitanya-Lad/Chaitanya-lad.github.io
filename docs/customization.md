@@ -22,7 +22,6 @@ tells you before the page does.
 | `MY_PROJECTS` | `projects-constants.ts` | Projects grid + detail modal. See below |
 | `SERVICES` | `services-constants.ts` | `title`, `description`, `icon`, `bullets[]` |
 | `EXPERIENCES` | `experience-constants.ts` | `title`, `job`, `date`, `contents[]` |
-| `REVIEWS` | `reviews-constants.ts` | The layout splits them evenly, so an even count looks best |
 | `SKILL_CHIPS` | `skills-constants.ts` | Skill pills, free text |
 | `MY_SOCIALS` `CONTACT_EMAIL` | `social-constants.ts` | Navbar, footer, mailto links |
 | `NAV_ITEMS` | `navigation-constants.ts` | The header links and their anchors |

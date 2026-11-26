@@ -60,7 +60,7 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
           {project.image ? (
             <Image
               src={project.image}
-              alt={`${project.title} homepage`}
+              alt={`${project.title} preview`}
               fill
               sizes="(min-width: 1024px) 58vw, 100vw"
               className={`pointer-events-none select-none ${
@@ -70,7 +70,7 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
               }`}
             />
           ) : (
-            showPreview && (
+            showPreview && project.href && (
               <iframe
                 src={project.href}
                 title={project.title}
@@ -100,29 +100,35 @@ export const ProjectPreview: FC<ProjectPreviewProps> = ({
             <span
               className={`${BADGE} inline-flex items-center gap-2 border-white/25 bg-black/50 text-white`}
             >
-              {!project.image && (
+              {!project.image && project.href && (
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inset-0 animate-ping rounded-full bg-mint opacity-75" />
                   <span className="relative h-1.5 w-1.5 rounded-full bg-mint" />
                 </span>
               )}
-              {project.image ? "Preview" : "Live Preview"}
+              {project.image
+                ? "Preview"
+                : project.href
+                  ? "Live Preview"
+                  : "Project Preview"}
             </span>
             <span className={`${BADGE} text-white/70`}>
               {formatCounter(index, total)}
             </span>
           </div>
 
-          <a
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ transform: "translateZ(80px)" }}
-            className="absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/50 px-4 py-2 text-xs text-white backdrop-blur-md hover:border-white/40"
-          >
-            <span>Open Site</span>
-            <span aria-hidden>↗</span>
-          </a>
+          {project.href && (
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ transform: "translateZ(80px)" }}
+              className="absolute bottom-5 right-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/50 px-4 py-2 text-xs text-white backdrop-blur-md hover:border-white/40"
+            >
+              <span>Open Site</span>
+              <span aria-hidden>↗</span>
+            </a>
+          )}
 
           <div
             style={{ transform: "translateZ(50px)" }}

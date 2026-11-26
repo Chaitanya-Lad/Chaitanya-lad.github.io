@@ -101,11 +101,6 @@ export const SITE_SECTIONS = [
       "Selected projects and case studies in MedTech, infrastructure and IoT.",
   },
   {
-    name: "Testimonials",
-    hash: "#testimonials",
-    description: `What clients and teammates say about working with ${HERO_NAME}.`,
-  },
-  {
     name: "Contact",
     hash: "#contact",
     description: `Get in touch with ${HERO_NAME} about freelance, contract or full-time work.`,

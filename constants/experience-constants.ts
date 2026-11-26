@@ -4,6 +4,7 @@ export const EXPERIENCES: Experience[] = [
   {
     title: "Software Engineer",
     job: "STRUmed Solutions Private Limited · Surat, Gujarat",
+    department: "R & D Department",
     date: "May 2025 - Present",
     contents: [
       "Own end-to-end product lifecycle activities for INFLAQUICK PROMX ED120 with the R&D Lead, spanning product planning, stakeholder alignment, development coordination, verification, validation and software delivery.",
@@ -17,6 +18,7 @@ export const EXPERIENCES: Experience[] = [
   {
     title: "Junior Software Engineer",
     job: "STRUmed Solutions Private Limited · Surat, Gujarat",
+    department: "R & D Department",
     date: "May 2022 - Apr 2025",
     contents: [
       "Contributed to the INFLAQUICK ESR Analyzer product family, supporting requirement clarification, workflow research and functional documentation with the R&D team.",
@@ -30,6 +32,7 @@ export const EXPERIENCES: Experience[] = [
   {
     title: "Software Development Intern",
     job: "STRUmed Solutions Private Limited · Surat, Gujarat",
+    department: "R & D Department",
     date: "Nov 2021 - Apr 2022",
     contents: [
       "Supported software development, basic testing, product familiarization and technical documentation while learning medical-device product development processes.",
@@ -38,6 +41,7 @@ export const EXPERIENCES: Experience[] = [
   {
     title: "Web Developer Intern",
     job: "Falcon Cyber Tech · Surat, Gujarat",
+    department: "Development",
     date: "Jan 2021 - Nov 2021",
     contents: [
       "Developed and deployed a WordPress e-commerce website with payment gateway and Shiprocket shipping/billing integration; tested core purchase and fulfilment workflows.",

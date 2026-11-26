@@ -44,31 +44,33 @@ export const ProjectSummary: FC<ProjectSummaryProps> = ({
     </div>
 
     <motion.div {...reveal(0.3)} className="mt-8 flex flex-wrap gap-3">
-      <a
-        href={project.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group inline-flex items-center gap-4 text-white"
-      >
-        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover:scale-110">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-5 w-5"
-            aria-hidden
-          >
-            <path d="M7 17L17 7" />
-            <path d="M7 7h10v10" />
-          </svg>
-        </span>
-        <span className="text-base font-medium tracking-tight md:text-lg">
-          Visit live
-        </span>
-      </a>
+      {project.href && (
+        <a
+          href={project.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center gap-4 text-white"
+        >
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-primary transition-transform duration-300 group-hover:scale-110">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-5 w-5"
+              aria-hidden
+            >
+              <path d="M7 17L17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </span>
+          <span className="text-base font-medium tracking-tight md:text-lg">
+            Visit live
+          </span>
+        </a>
+      )}
       <button type="button" onClick={onOpen} className="btn-ghost">
         <span>Case study</span>
       </button>

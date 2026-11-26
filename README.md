@@ -29,7 +29,7 @@ This portfolio includes a 3D animated hero, project showcase and search-engine m
 | **Contact form** | Opens a prefilled message in the visitor's email app; the visitor sends it directly |
 | **SEO ready** | `sitemap.xml`, `robots.txt`, canonical URLs, Open Graph, Twitter cards and JSON-LD structured data, all generated from your own content |
 
-Every string, project and testimonial lives in `constants/`, one typed file per domain. Fork it,
+Every string, project and experience lives in `constants/`, one typed file per domain. Fork it,
 edit that folder, and it is your portfolio, with no component changes needed.
 
 ## Features
@@ -75,7 +75,7 @@ Both variables are optional for the GitHub Pages deployment.
 
 ## Make it yours
 
-1. **Content:** edit `constants/` (hero, projects, services, experience, reviews, skills, socials)
+1. **Content:** edit `constants/` (hero, projects, services, experience, skills, socials)
 2. **Images:** `public/assets/`, and replace `public/og.jpg` with your own 1200×630 preview
 3. **Colours:** the `@theme` block at the top of `app/globals.css`
 4. **SEO:** `constants/seo-constants.ts`, then set `NEXT_PUBLIC_SITE_URL`
@@ -104,7 +104,7 @@ See [`docs/deployment.md`](docs/deployment.md) for details and static-hosting li
 Code is [MIT](LICENSE). The content and assets are **not** - see [`NOTICE`](NOTICE).
 Replace them before deploying:
 
-- Personal content (name, biography, project write-ups, testimonials, résumé) belongs to Chaitanya Lad
+- Personal content (name, biography, project write-ups, work history, résumé) belongs to Chaitanya Lad
 - `public/models/*.glb` is third-party fan art from Sketchfab, so **check its licence and keep the attribution**
 - Project screenshots and client logos belong to their owners
 

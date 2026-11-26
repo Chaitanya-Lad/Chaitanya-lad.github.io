@@ -70,9 +70,6 @@ export const SECTION_KEYS: SectionKey[] = [
   { id: "work", at: 0.5, x: -0.46, y: -0.34, scale: 1.14, presence: 1 },
   { id: "work", at: 1, ...DIP },
 
-  { id: "testimonials", at: 0.5, x: 0.46, y: -0.31, scale: 1.02, presence: 1 },
-  { id: "testimonials", at: 1, ...DIP },
-
   { id: "contact", at: 0.5, x: -0.47, y: -0.33, scale: 1.1, presence: 1 },
 ];
 

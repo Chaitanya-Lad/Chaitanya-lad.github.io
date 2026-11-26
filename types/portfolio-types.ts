@@ -12,7 +12,7 @@ export interface Project {
   category: string;
   description: string;
   subDescription: string[];
-  href: string;
+  href?: string;
   logo: string;
   image: string;
   tags: ProjectTag[];
@@ -28,15 +28,9 @@ export interface SocialLink {
 export interface Experience {
   title: string;
   job: string;
+  department: string;
   date: string;
   contents: string[];
-}
-
-export interface Review {
-  name: string;
-  role: string;
-  body: string;
-  accent: string;
 }
 
 export interface Service {
