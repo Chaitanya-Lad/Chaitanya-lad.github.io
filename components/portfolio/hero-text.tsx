@@ -68,11 +68,10 @@ export const HeroText: FC = () => {
           </a>
           <a
             href="/Chaitanya_Lad.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Chaitanya_Lad.pdf"
             className="btn-ghost"
           >
-            <span>Resume</span>
+            <span>Download Resume</span>
           </a>
         </div>
       </div>
@@ -132,11 +131,10 @@ export const HeroText: FC = () => {
           </a>
           <a
             href="/Chaitanya_Lad.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Chaitanya_Lad.pdf"
             className="btn-ghost w-full"
           >
-            <span>Resume</span>
+            <span>Download Resume</span>
           </a>
         </div>
       </div>

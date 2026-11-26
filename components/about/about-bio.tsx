@@ -49,11 +49,10 @@ export const AboutBio: FC = () => {
         </a>
         <a
           href="/Chaitanya_Lad.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
+          download="Chaitanya_Lad.pdf"
           className="btn-ghost"
         >
-          <span>Resume</span>
+          <span>Download Resume</span>
         </a>
       </div>
     </motion.div>

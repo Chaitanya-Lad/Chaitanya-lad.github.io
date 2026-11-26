@@ -65,7 +65,7 @@ export const MY_PROJECTS: Project[] = [
     ],
     href: "https://chaitanya-lad.github.io/",
     logo: "",
-    image: "/projects/portfolio.webp",
+    image: "/assets/Screenshot From 2026-11-26 12-40-27.png",
     accent: "from-fuchsia/40 to-royal/10",
     tags: [
       { id: 1, name: "Next.js", path: "/assets/logos/react.svg" },

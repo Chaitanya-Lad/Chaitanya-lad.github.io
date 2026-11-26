@@ -15,7 +15,7 @@ contact form opens a prefilled email in the visitor's email app.
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e.svg)](LICENSE)
 
-[![Developer portfolio website template with 3D animated hero, built with Next.js, Three.js and Tailwind CSS](docs/images/screenshot.jpg)](https://chaitanya-lad.github.io)
+[![Portfolio website featuring a 3D animated hero](public/assets/Screenshot%20From%202026-11-26%2012-40-27.png)](https://chaitanya-lad.github.io)
 
 </div>
 
